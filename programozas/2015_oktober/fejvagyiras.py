@@ -3,7 +3,6 @@
 import random
 
 # 1.
-import weakref
 
 valasztas = ["I", "F"] # a kettő közül az egyiket véletlenszerűen kiválasztjuk
 
