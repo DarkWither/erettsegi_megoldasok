@@ -46,12 +46,6 @@ print(f"Az utolsó telek házszáma: {lista[-1].hazszam}")
 
 # 4.
 
-paratlan_maximum = 0 # melyik a legnagyobb házszám; azért kell, hogy utána lévőt ne vizsgálhassunk, mert nem létezik
-
-for kerites in lista:
-    if paratlan_maximum < kerites.hazszam and kerites.oldal == 1:
-        paratlan_maximum = kerites.hazszam
-
 egyezik = 0 # az egyező telek házszáma
 
 for kerites in lista:
@@ -59,9 +53,8 @@ for kerites in lista:
         mellette_levo = "" # megkeressük a mellette lévőt
 
         for telek in lista:
-            if telek.hazszam + 2 <= paratlan_maximum:
-                if telek.hazszam + 2 == kerites.hazszam:
-                    mellette_levo = telek
+            if telek.hazszam + 2 == kerites.hazszam:
+                mellette_levo = telek
 
         if mellette_levo != "": # van mellette telek
             if kerites.szin == mellette_levo.szin and kerites.szin not in [":", "#"]: # megegyezik a színe a mellette lévővel és van színe a kerítésnek
@@ -85,12 +78,6 @@ print(f"A kerítés színe / állapota: {bekert_kerites.szin}")
 
 # b.
 
-paros_maximum = 0
-
-for kerites in lista:
-    if paros_maximum < kerites.hazszam and kerites.oldal == 0:
-        paros_maximum = kerites.hazszam
-
 szinek = set()
 
 for kerites in lista:
@@ -105,10 +92,12 @@ for kerites in lista:
     if kerites.hazszam - 2 == beker_hazszam or kerites.hazszam + 2 == beker_hazszam: # ha mellette van
         beker_kerites_mellettiek.append(kerites)
 
-szinek.remove(bekert_kerites.szin) # kiszedjük a jelenlegi színt, mivel az nem lehetséges választás
+if bekert_kerites.szin not in [":", "#"]:
+    szinek.remove(bekert_kerites.szin) # kiszedjük a jelenlegi színt, mivel az nem lehetséges választás
 
 for kerites in beker_kerites_mellettiek:
-    szinek.remove(kerites.szin) # kiszedjük a szomszédok színét is
+    if bekert_kerites.szin not in [":", "#"]:
+        szinek.remove(kerites.szin) # kiszedjük a szomszédok színét is
 
 print(f"Egy lehetséges festési szín: {szinek[0]}") # mindegy, melyik elemét iratod ki, lényeg az, hogy biztosan létezzen az elem
 
