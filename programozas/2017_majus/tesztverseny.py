@@ -115,7 +115,23 @@ for pont in sorted(set(azonositok_es_pontok.values()), reverse=True):
     else: # ha már benne van
         break
 
+pontokbol_hany = {} # kulcs: pontszám, érték: hány darab
+
+for azonosito, pont in azonositok_es_pontok.items():
+    if pont in harom_legtobb_pont:
+        pontokbol_hany[pont] = pontokbol_hany.get(pont, 0) + 1
+
+nem_jo_helyek = [] # azok a helyek indexei, amelyekből legalább 4 darab van
+sorszam = 0
+
+for pont in sorted(pontokbol_hany.keys()): # növekvő sorrend
+    if pontokbol_hany[pont] > 3:
+        nem_jo_helyek.append(sorszam)
+
+    sorszam += 1
+
 for pontszam_index in range(0, 3):
-    for azonosito, pont in azonositok_es_pontok.items():
-        if pont == harom_legtobb_pont[pontszam_index]:
-            print(f"{pontszam_index + 1}. díj ({pont} pont): {azonosito}") # pontszam_index + 1 == helyezés
+    if pontszam_index not in nem_jo_helyek: # ne legyen olyan hely, amit többen, mint 3-an nyertek el
+        for azonosito, pont in azonositok_es_pontok.items():
+            if pont == harom_legtobb_pont[pontszam_index]:
+                print(f"{pontszam_index + 1}. díj ({pont} pont): {azonosito}") # pontszam_index + 1 == helyezés
