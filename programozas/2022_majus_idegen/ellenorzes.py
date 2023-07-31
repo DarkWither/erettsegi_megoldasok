@@ -86,7 +86,7 @@ for jarmu in lista:
 
 lehagyott_jarmuvek_szama = 0
 
-# akkor hagyott le egy járművet, ha a hamarabb vagy ugyanakkor indult el a szakaszon az autó, mint a leggyorsabb, de mire végetért az kisebb, mint a leggyorsabb vége
+# akkor hagyott le egy járművet, ha a hamarabb vagy ugyanakkor indult el a szakaszon az autó, mint a leggyorsabb, de mire végetért az nagyobb, mint a leggyorsabb vége
 
 for jarmu in lista:
     if jarmu.kezdet_oraban <= leggyorsabb_jarmu.kezdet_oraban and jarmu.vege_oraban > leggyorsabb_jarmu.vege_oraban:
